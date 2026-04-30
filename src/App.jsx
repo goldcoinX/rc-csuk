@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { 
-  Menu, X, Phone, Globe, Facebook, Twitter, Instagram, 
+  Menu, X, Phone, Globe, Share2, 
   MessageCircle, Star, Calendar, CreditCard, CircleCheck, ChevronDown, 
   MapPin, ShieldCheck, Camera, Clock, Upload, ArrowLeft, PoundSterling, CircleAlert,
   User, Lock, Mail, LogOut
-} from 'lucide-react'; 
+} from 'lucide-react';
 
 export default function App() {
   const [appView, setAppView] = useState('public'); // 'public' | 'worker' | 'client'
@@ -347,9 +347,9 @@ export default function App() {
     <div className="min-h-screen font-sans text-gray-800 flex flex-col">
       <div className="bg-white px-4 py-2 flex justify-between items-center text-sm border-b">
         <div className="flex gap-3 text-blue-600">
-          <Facebook size={18} className="cursor-pointer hover:opacity-70" />
-          <Twitter size={18} className="cursor-pointer hover:opacity-70" />
-          <Instagram size={18} className="cursor-pointer hover:opacity-70" />
+          <Share2 size={18} className="cursor-pointer hover:opacity-70" />
+          <X size={18} className="cursor-pointer hover:opacity-70" />
+          <Camera size={18} className="cursor-pointer hover:opacity-70" />
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1 cursor-pointer" onClick={() => setActiveLang(activeLang === 'EN' ? 'ES' : 'EN')}>
