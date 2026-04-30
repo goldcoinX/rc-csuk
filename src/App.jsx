@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Menu, X, Phone, Globe, Facebook, Twitter, Instagram, 
-  MessageCircle, Star, Calendar, CreditCard, CheckCircle2, ChevronDown, 
-  MapPin, ShieldCheck, Camera, Clock, Upload, ArrowLeft, PoundSterling, AlertCircle,
+  MessageCircle, Star, Calendar, CreditCard, CircleCheck, ChevronDown, 
+  MapPin, ShieldCheck, Camera, Clock, Upload, ArrowLeft, PoundSterling, CircleAlert,
   User, Lock, Mail, LogOut
 } from 'lucide-react';
 
-export function App() {
+export default function App() {
   const [appView, setAppView] = useState('public'); // 'public' | 'worker' | 'client'
   
   // Auth State
@@ -57,7 +57,6 @@ export function App() {
     const [jobStatus, setJobStatus] = useState('not_started'); // not_started, clocked_in, uploading_proof, pending_review
     const [uploadedPhotos, setUploadedPhotos] = useState(0);
 
-    // Simulate GPS pinging
     const simulateArrival = () => {
       setInGeofence(true);
       alert("GPS Ping: You are within 200m of the target property.");
@@ -77,7 +76,6 @@ export function App() {
     return (
       <div className="min-h-screen bg-gray-900 flex justify-center">
         <div className="w-full max-w-md bg-white shadow-2xl relative flex flex-col min-h-screen">
-          {/* Header */}
           <div className="bg-blue-600 text-white p-4 flex items-center justify-between shadow-md relative z-10">
             <button onClick={() => setAppView('public')} className="flex items-center gap-1 text-sm font-medium hover:text-lime-300">
               <ArrowLeft size={16} /> Exit
@@ -87,7 +85,6 @@ export function App() {
           </div>
 
           <div className="flex-grow p-6 overflow-y-auto">
-            {/* Earnings Dashboard Preview */}
             <div className="bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl p-5 text-white mb-6 shadow-lg">
               <p className="text-sm opacity-80 mb-1 font-medium">This Week's Earnings</p>
               <h3 className="text-4xl font-extrabold flex items-center mb-2"><PoundSterling size={32} /> 450.00</h3>
@@ -97,11 +94,9 @@ export function App() {
               </div>
             </div>
 
-            {/* Current Assignment */}
             <div className="mb-6">
               <h4 className="text-gray-500 font-bold text-xs uppercase tracking-wider mb-3">Current Assignment</h4>
               <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm relative overflow-hidden">
-                {/* Status Strip */}
                 <div className={`absolute top-0 left-0 w-1 h-full ${jobStatus === 'not_started' ? 'bg-orange-400' : jobStatus === 'clocked_in' ? 'bg-lime-400' : 'bg-blue-400'}`}></div>
                 
                 <h3 className="font-bold text-lg text-gray-800 mb-1">Standard House Clean</h3>
@@ -110,7 +105,6 @@ export function App() {
                   142 Baker Street, Marylebone, London, NW1 6XE
                 </p>
 
-                {/* Workflow States */}
                 {jobStatus === 'not_started' && (
                   <div className="space-y-4">
                     <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 text-sm flex gap-3">
@@ -140,7 +134,7 @@ export function App() {
                       </button>
                     ) : (
                       <div className="text-green-600 text-sm font-bold flex items-center gap-2 bg-green-50 p-2 rounded">
-                        <CheckCircle2 size={16} /> Within 200m of Property
+                        <CircleCheck size={16} /> Within 200m of Property
                       </div>
                     )}
 
@@ -197,7 +191,7 @@ export function App() {
                             : 'border-dashed border-gray-300 bg-gray-50 text-gray-400 hover:bg-gray-100'
                           }`}
                         >
-                          {i < uploadedPhotos ? <CheckCircle2 size={24} /> : <Camera size={24} />}
+                          {i < uploadedPhotos ? <CircleCheck size={24} /> : <Camera size={24} />}
                           <span className="text-xs mt-1 font-medium">{i < uploadedPhotos ? 'Added' : 'Add Photo'}</span>
                         </div>
                       ))}
@@ -223,7 +217,7 @@ export function App() {
                     <p className="text-sm text-gray-500">Your shift has ended and photos are uploaded.</p>
                     
                     <div className="bg-orange-50 border border-orange-200 text-orange-800 p-4 rounded-lg text-sm text-left mt-4 flex gap-3 items-start">
-                      <AlertCircle size={20} className="flex-shrink-0 mt-0.5" />
+                      <CircleAlert size={20} className="flex-shrink-0 mt-0.5" />
                       <div>
                         <strong>Pending Review (Soft Approval)</strong>
                         <p className="mt-1 text-orange-700/80">Funds will be auto-approved to your Stripe account in exactly 4 hours unless the client disputes the quality.</p>
@@ -231,7 +225,6 @@ export function App() {
                     </div>
                   </div>
                 )}
-
               </div>
             </div>
           </div>
@@ -263,11 +256,10 @@ export function App() {
             <h1 className="text-3xl font-bold text-gray-800 mb-8">Welcome back, {currentUser?.name || 'Emma'}!</h1>
             
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Action Required: Approvals */}
               <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-orange-400">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2">
-                    <AlertCircle className="text-orange-400" /> Action Required
+                    <CircleAlert className="text-orange-400" /> Action Required
                   </h3>
                   <span className="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded">Soft Approval</span>
                 </div>
@@ -282,7 +274,6 @@ export function App() {
                 </div>
               </div>
 
-              {/* Upcoming Bookings */}
               <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
                 <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2 mb-4">
                   <Calendar className="text-blue-500" /> Upcoming Bookings
@@ -354,7 +345,6 @@ export function App() {
 
   return (
     <div className="min-h-screen font-sans text-gray-800 flex flex-col">
-      {/* Top Bar */}
       <div className="bg-white px-4 py-2 flex justify-between items-center text-sm border-b">
         <div className="flex gap-3 text-blue-600">
           <Facebook size={18} className="cursor-pointer hover:opacity-70" />
@@ -373,7 +363,6 @@ export function App() {
         </div>
       </div>
 
-      {/* Main Navigation */}
       <nav className="bg-blue-600 text-white p-4 sticky top-0 z-40 shadow-md">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2 cursor-pointer">
@@ -450,7 +439,6 @@ export function App() {
       </nav>
 
       <main className="flex-grow">
-        {/* Hero Section */}
         <section 
           id="home" 
           className="relative bg-blue-600 text-white py-16 px-6 overflow-hidden flex flex-col items-center text-center"
@@ -483,14 +471,12 @@ export function App() {
           </div>
         </section>
 
-        {/* Call Now Banner */}
         <div className="bg-white py-6 text-center shadow-inner relative z-20">
           <h2 className="text-2xl md:text-4xl text-blue-500 font-light">
             Call Now <a href="tel:+447496167320" className="font-bold hover:underline">+44 7496167320</a>
           </h2>
         </div>
 
-        {/* Why Choose Us */}
         <section id="about" className="py-16 px-6" style={{ backgroundColor: colors.limeGreen }}>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-extrabold text-blue-600 text-center mb-12 tracking-wide">
@@ -514,7 +500,6 @@ export function App() {
           </div>
         </section>
 
-        {/* Services Section */}
         <section id="services" className="bg-white py-12">
           <h2 className="text-4xl font-extrabold text-blue-600 text-center mb-10 tracking-wide">
             OUR SERVICES
@@ -545,7 +530,6 @@ export function App() {
           </div>
         </section>
 
-        {/* Testimonials */}
         <section className="py-20 px-6 text-center" style={{ backgroundColor: colors.limeGreen }}>
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl font-extrabold text-blue-600 mb-8 tracking-wider">
@@ -563,7 +547,6 @@ export function App() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer id="contact" className="bg-white pt-16 pb-8 px-6 text-center">
         <h2 className="text-4xl font-extrabold text-blue-600 mb-6">
           CONTACT US FOR<br/>A FREE QUOTE!
@@ -583,7 +566,6 @@ export function App() {
           <p>&copy; 2026 Rita Collins Cleaning Services. All rights reserved.</p>
           <div className="flex flex-col items-center">
             <p className="mt-2 text-xs">Site managed by TMMT LTD</p>
-            {/* TOGGLE FOR WORKER PORTAL */}
             <button 
               onClick={() => {
                 if (currentUser && currentUser.role === 'staff') {
@@ -602,7 +584,6 @@ export function App() {
         </div>
       </footer>
 
-      {/* Floating Chat Button */}
       <div className="fixed bottom-6 right-6 z-50">
         {isChatOpen ? (
           <div className="bg-white rounded-lg shadow-2xl w-80 mb-4 overflow-hidden border border-gray-200 flex flex-col">
@@ -630,7 +611,6 @@ export function App() {
         </button>
       </div>
 
-      {/* Booking & Payment Modal */}
       {showBookingModal && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
@@ -687,14 +667,13 @@ export function App() {
                 }}
                 className="px-6 py-2 bg-lime-400 text-blue-900 font-bold rounded hover:bg-lime-500 shadow-md flex items-center gap-2"
               >
-                <CheckCircle2 size={18} /> Pay & Book Now
+                <CircleCheck size={18} /> Pay & Book Now
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Auth Modal (Login / Sign Up) */}
       {showAuthModal && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col">
@@ -706,7 +685,6 @@ export function App() {
             </div>
 
             <div className="p-6">
-              {/* Role Switcher */}
               <div className="flex bg-gray-100 rounded-lg p-1 mb-6">
                 <button 
                   className={`flex-1 py-2 text-sm font-bold rounded-md transition flex items-center justify-center gap-2 ${authRole === 'client' ? 'bg-white shadow text-blue-600' : 'text-gray-500 hover:bg-gray-200'}`}
@@ -724,7 +702,6 @@ export function App() {
 
               <form onSubmit={(e) => {
                 e.preventDefault();
-                // Simulate Authentication Submission
                 setCurrentUser({ 
                   name: authMode === 'signup' ? (authRole === 'client' ? 'New Client' : 'New Staff') : (authRole === 'client' ? 'Emma Smith' : 'Alex Johnson'), 
                   role: authRole 
