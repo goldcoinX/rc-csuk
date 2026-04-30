@@ -6,7 +6,7 @@ import {
   User, Lock, Mail, LogOut
 } from 'lucide-react';
 
-export default function App() {
+export function App() {
   const [appView, setAppView] = useState('public'); // 'public' | 'worker' | 'client'
   
   // Auth State
