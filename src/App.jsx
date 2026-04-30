@@ -4,7 +4,7 @@ import {
   MessageCircle, Star, Calendar, CreditCard, CircleCheck, ChevronDown, 
   MapPin, ShieldCheck, Camera, Clock, Upload, ArrowLeft, PoundSterling, CircleAlert,
   User, Lock, Mail, LogOut
-} from 'lucide-react';
+} from 'lucide-react'; 
 
 export default function App() {
   const [appView, setAppView] = useState('public'); // 'public' | 'worker' | 'client'
