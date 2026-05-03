@@ -5,7 +5,7 @@ import {
   Upload, ArrowLeft, PoundSterling, AlertCircle, User, Lock, Mail, LogOut
 } from 'lucide-react';
 
-// Custom SVG Icons to replace the removed Lucide brand icons
+// Custom SVG Icons
 const FacebookIcon = ({ size = 18, className }) => (
   <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
 );
@@ -15,15 +15,20 @@ const TwitterIcon = ({ size = 18, className }) => (
 const InstagramIcon = ({ size = 18, className }) => (
   <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
 );
+const WhatsAppIcon = ({ size = 24, className }) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+);
 
 export default function App() {
-  const [appView, setAppView] = useState('public'); // 'public' | 'worker' | 'client'
+  const [appView, setAppView] = useState('public'); 
   
   // Auth State
-  const [currentUser, setCurrentUser] = useState(null); // { name, role: 'client'|'staff' }
+  const [currentUser, setCurrentUser] = useState(null); 
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [authMode, setAuthMode] = useState('login'); // 'login' | 'signup'
-  const [authRole, setAuthRole] = useState('client'); // 'client' | 'staff'
+  const [authMode, setAuthMode] = useState('login'); 
+  const [authRole, setAuthRole] = useState('client'); 
 
   const handleLogout = () => {
     setCurrentUser(null);
@@ -35,10 +40,10 @@ export default function App() {
   const [activeLang, setActiveLang] = useState('EN');
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   
-  // Brand Colors matching the screenshots
   const colors = {
     primaryBlue: '#007BFF',
     limeGreen: '#D4FC2C',
@@ -64,21 +69,16 @@ export default function App() {
   const WorkerPortal = () => {
     const [gdprConsent, setGdprConsent] = useState(false);
     const [inGeofence, setInGeofence] = useState(false);
-    const [jobStatus, setJobStatus] = useState('not_started'); // not_started, clocked_in, uploading_proof, pending_review
+    const [jobStatus, setJobStatus] = useState('not_started'); 
     const [uploadedPhotos, setUploadedPhotos] = useState(0);
 
-    // Simulate GPS pinging
     const simulateArrival = () => {
       setInGeofence(true);
       alert("GPS Ping: You are within 200m of the target property.");
     };
 
     const handleClockOut = () => setJobStatus('uploading_proof');
-    
-    const handleUpload = () => {
-      if (uploadedPhotos < 3) setUploadedPhotos(p => p + 1);
-    };
-
+    const handleUpload = () => { if (uploadedPhotos < 3) setUploadedPhotos(p => p + 1); };
     const handleSubmitProof = () => {
       if (uploadedPhotos >= 2) setJobStatus('pending_review');
       else alert("Please upload at least 2 photos of the finished job.");
@@ -87,7 +87,6 @@ export default function App() {
     return (
       <div className="min-h-screen bg-gray-900 flex justify-center">
         <div className="w-full max-w-md bg-white shadow-2xl relative flex flex-col min-h-screen">
-          {/* Header */}
           <div className="bg-blue-600 text-white p-4 flex items-center justify-between shadow-md relative z-10">
             <button onClick={() => setAppView('public')} className="flex items-center gap-1 text-sm font-medium hover:text-lime-300">
               <ArrowLeft size={16} /> Exit
@@ -97,7 +96,6 @@ export default function App() {
           </div>
 
           <div className="flex-grow p-6 overflow-y-auto">
-            {/* Earnings Dashboard Preview */}
             <div className="bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl p-5 text-white mb-6 shadow-lg">
               <p className="text-sm opacity-80 mb-1 font-medium">This Week's Earnings</p>
               <h3 className="text-4xl font-extrabold flex items-center mb-2"><PoundSterling size={32} /> 450.00</h3>
@@ -107,11 +105,9 @@ export default function App() {
               </div>
             </div>
 
-            {/* Current Assignment */}
             <div className="mb-6">
               <h4 className="text-gray-500 font-bold text-xs uppercase tracking-wider mb-3">Current Assignment</h4>
               <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm relative overflow-hidden">
-                {/* Status Strip */}
                 <div className={`absolute top-0 left-0 w-1 h-full ${jobStatus === 'not_started' ? 'bg-orange-400' : jobStatus === 'clocked_in' ? 'bg-lime-400' : 'bg-blue-400'}`}></div>
                 
                 <h3 className="font-bold text-lg text-gray-800 mb-1">Standard House Clean</h3>
@@ -120,7 +116,6 @@ export default function App() {
                   142 Baker Street, Marylebone, London, NW1 6XE
                 </p>
 
-                {/* Workflow States */}
                 {jobStatus === 'not_started' && (
                   <div className="space-y-4">
                     <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 text-sm flex gap-3">
@@ -142,10 +137,7 @@ export default function App() {
                     </label>
 
                     {!inGeofence ? (
-                       <button 
-                        onClick={simulateArrival}
-                        className="w-full py-3 bg-gray-200 text-gray-600 font-bold rounded-lg border-2 border-dashed border-gray-300 hover:bg-gray-300 transition flex items-center justify-center gap-2"
-                      >
+                       <button onClick={simulateArrival} className="w-full py-3 bg-gray-200 text-gray-600 font-bold rounded-lg border-2 border-dashed border-gray-300 hover:bg-gray-300 transition flex items-center justify-center gap-2">
                         <MapPin size={18} /> Simulate Arrival (Dev Test)
                       </button>
                     ) : (
@@ -158,9 +150,7 @@ export default function App() {
                       disabled={!gdprConsent || !inGeofence}
                       onClick={() => setJobStatus('clocked_in')}
                       className={`w-full py-4 rounded-xl font-bold text-lg transition-all shadow-md flex items-center justify-center gap-2 ${
-                        !gdprConsent || !inGeofence 
-                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-                        : 'bg-lime-400 text-blue-900 hover:bg-lime-500 hover:scale-[1.02]'
+                        !gdprConsent || !inGeofence ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-lime-400 text-blue-900 hover:bg-lime-500 hover:scale-[1.02]'
                       }`}
                     >
                       <Clock size={20} /> Clock In Now
@@ -181,10 +171,7 @@ export default function App() {
                       <span className="font-mono font-bold text-lg tracking-widest">02:14:36</span>
                     </div>
 
-                    <button 
-                      onClick={handleClockOut}
-                      className="w-full py-4 rounded-xl font-bold text-lg bg-red-500 text-white hover:bg-red-600 transition-all shadow-md flex items-center justify-center gap-2"
-                    >
+                    <button onClick={handleClockOut} className="w-full py-4 rounded-xl font-bold text-lg bg-red-500 text-white hover:bg-red-600 transition-all shadow-md flex items-center justify-center gap-2">
                       <Clock size={20} /> Clock Out & Submit Proof
                     </button>
                   </div>
@@ -198,27 +185,14 @@ export default function App() {
                     
                     <div className="grid grid-cols-3 gap-2">
                       {[...Array(3)].map((_, i) => (
-                        <div 
-                          key={i} 
-                          onClick={handleUpload}
-                          className={`aspect-square rounded-lg border-2 flex flex-col items-center justify-center cursor-pointer transition ${
-                            i < uploadedPhotos 
-                            ? 'border-lime-400 bg-lime-50 text-lime-600' 
-                            : 'border-dashed border-gray-300 bg-gray-50 text-gray-400 hover:bg-gray-100'
-                          }`}
-                        >
+                        <div key={i} onClick={handleUpload} className={`aspect-square rounded-lg border-2 flex flex-col items-center justify-center cursor-pointer transition ${i < uploadedPhotos ? 'border-lime-400 bg-lime-50 text-lime-600' : 'border-dashed border-gray-300 bg-gray-50 text-gray-400 hover:bg-gray-100'}`}>
                           {i < uploadedPhotos ? <CheckCircle2 size={24} /> : <Camera size={24} />}
                           <span className="text-xs mt-1 font-medium">{i < uploadedPhotos ? 'Added' : 'Add Photo'}</span>
                         </div>
                       ))}
                     </div>
 
-                    <button 
-                      onClick={handleSubmitProof}
-                      className={`w-full py-3 rounded-xl font-bold text-white transition-all shadow-md flex items-center justify-center gap-2 ${
-                        uploadedPhotos >= 2 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-300 cursor-not-allowed'
-                      }`}
-                    >
+                    <button onClick={handleSubmitProof} className={`w-full py-3 rounded-xl font-bold text-white transition-all shadow-md flex items-center justify-center gap-2 ${uploadedPhotos >= 2 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-300 cursor-not-allowed'}`}>
                       <Upload size={18} /> Submit Photos & Finish
                     </button>
                   </div>
@@ -226,9 +200,7 @@ export default function App() {
 
                 {jobStatus === 'pending_review' && (
                   <div className="space-y-4 text-center py-6 animate-fade-in">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-600">
-                      <Clock size={32} />
-                    </div>
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-600"><Clock size={32} /></div>
                     <h3 className="font-bold text-xl text-gray-800">Job Complete!</h3>
                     <p className="text-sm text-gray-500">Your shift has ended and photos are uploaded.</p>
                     
@@ -273,7 +245,6 @@ export default function App() {
             <h1 className="text-3xl font-bold text-gray-800 mb-8">Welcome back, {currentUser?.name || 'Emma'}!</h1>
             
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Action Required: Approvals */}
               <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-orange-400">
                 <div className="flex justify-between items-start mb-4">
                   <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2">
@@ -292,7 +263,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Upcoming Bookings */}
               <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
                 <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2 mb-4">
                   <Calendar className="text-blue-500" /> Upcoming Bookings
@@ -363,7 +333,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen font-sans text-gray-800 flex flex-col">
+    <div className="min-h-screen font-sans text-gray-800 flex flex-col relative">
       {/* Top Bar */}
       <div className="bg-white px-4 py-2 flex justify-between items-center text-sm border-b">
         <div className="flex gap-3 text-blue-600">
@@ -377,9 +347,15 @@ export default function App() {
             <span className="font-semibold text-blue-500">{activeLang}</span>
             <ChevronDown size={14} className="text-blue-500" />
           </div>
-          <a href="tel:+447496167320" className="text-blue-500 font-medium hover:underline">
-            +44 7496167320
-          </a>
+          {/* Top Bar WhatsApp / Phone Link */}
+          <div className="flex items-center gap-2">
+            <a href="https://wa.me/447496167320" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:scale-110 transition-transform">
+              <WhatsAppIcon size={18} />
+            </a>
+            <a href="tel:+447496167320" className="text-blue-500 font-bold hover:underline">
+              +44 7496167320
+            </a>
+          </div>
         </div>
       </div>
 
@@ -395,7 +371,29 @@ export default function App() {
           
           <div className="hidden md:flex items-center gap-8 font-semibold">
             <a href="#home" className="hover:text-lime-300 transition">Home</a>
-            <a href="#services" className="hover:text-lime-300 transition">Services</a>
+            
+            {/* Desktop Dropdown for Services */}
+            <div className="relative group py-4 -my-4 cursor-pointer">
+              <a href="#services" className="hover:text-lime-300 transition flex items-center gap-1">
+                Services <ChevronDown size={14} className="transition-transform duration-300 group-hover:rotate-180" />
+              </a>
+              {/* Dropdown Box */}
+              <div className="absolute top-full left-0 mt-0 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <div className="bg-white rounded-xl shadow-2xl py-2 text-gray-800 border border-gray-100 overflow-hidden">
+                  {services.map((s, i) => (
+                    <div 
+                      key={i} 
+                      onClick={() => setShowBookingModal(true)}
+                      className="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm font-medium transition-colors flex items-center gap-3 border-b border-gray-50 last:border-0"
+                    >
+                      <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }}></div>
+                      {s.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <a href="#about" className="hover:text-lime-300 transition">About Us</a>
             
             {currentUser ? (
@@ -444,10 +442,35 @@ export default function App() {
           </div>
         </div>
 
+        {/* Mobile Nav Menu */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-blue-700 p-4 flex flex-col gap-4 shadow-lg pb-6">
+          <div className="md:hidden absolute top-full left-0 w-full bg-blue-700 p-4 flex flex-col gap-4 shadow-lg pb-6 z-50">
             <a href="#home" onClick={toggleMenu} className="font-semibold text-lg border-b border-blue-600 pb-2">Home</a>
-            <a href="#services" onClick={toggleMenu} className="font-semibold text-lg border-b border-blue-600 pb-2">Services</a>
+            
+            {/* Mobile Dropdown */}
+            <div className="border-b border-blue-600 pb-2">
+              <button 
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)} 
+                className="font-semibold text-lg w-full flex justify-between items-center"
+              >
+                Services <ChevronDown size={20} className={`transform transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileServicesOpen && (
+                <div className="mt-3 flex flex-col gap-3 pl-4">
+                  {services.map((s, i) => (
+                    <div 
+                      key={i} 
+                      onClick={() => { toggleMenu(); setShowBookingModal(true); }}
+                      className="flex items-center gap-3 text-blue-100 hover:text-white"
+                    >
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }}></div>
+                      {s.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="#about" onClick={toggleMenu} className="font-semibold text-lg border-b border-blue-600 pb-2">About Us</a>
             <a href="#contact" onClick={toggleMenu} className="font-semibold text-lg border-b border-blue-600 pb-2">Contact</a>
             {currentUser && (
@@ -495,7 +518,7 @@ export default function App() {
 
         {/* Call Now Banner */}
         <div className="bg-white py-6 text-center shadow-inner relative z-20">
-          <h2 className="text-2xl md:text-4xl text-blue-500 font-light">
+          <h2 className="text-2xl md:text-4xl text-blue-500 font-light flex items-center justify-center gap-2 flex-wrap">
             Call Now <a href="tel:+447496167320" className="font-bold hover:underline">+44 7496167320</a>
           </h2>
         </div>
@@ -525,7 +548,7 @@ export default function App() {
         </section>
 
         {/* Services Section */}
-        <section id="services" className="bg-white py-12">
+        <section id="services" className="bg-white py-12 relative z-10">
           <h2 className="text-4xl font-extrabold text-blue-600 text-center mb-10 tracking-wide">
             OUR SERVICES
           </h2>
@@ -612,7 +635,20 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Floating Chat Button */}
+      {/* FLOATING ACTION BUTTONS */}
+      
+      {/* Floating WhatsApp API Button (Bottom Left) */}
+      <a 
+        href="https://wa.me/447496167320" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-6 left-6 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:bg-[#20b958] hover:scale-110 transition-transform"
+        aria-label="Chat on WhatsApp"
+      >
+        <WhatsAppIcon size={34} />
+      </a>
+
+      {/* Floating Chat Button (Bottom Right) */}
       <div className="fixed bottom-6 right-6 z-50">
         {isChatOpen ? (
           <div className="bg-white rounded-lg shadow-2xl w-80 mb-4 overflow-hidden border border-gray-200 flex flex-col">
@@ -716,7 +752,6 @@ export default function App() {
             </div>
 
             <div className="p-6">
-              {/* Role Switcher */}
               <div className="flex bg-gray-100 rounded-lg p-1 mb-6">
                 <button 
                   className={`flex-1 py-2 text-sm font-bold rounded-md transition flex items-center justify-center gap-2 ${authRole === 'client' ? 'bg-white shadow text-blue-600' : 'text-gray-500 hover:bg-gray-200'}`}
@@ -734,7 +769,6 @@ export default function App() {
 
               <form onSubmit={(e) => {
                 e.preventDefault();
-                // Simulate Authentication Submission
                 setCurrentUser({ 
                   name: authMode === 'signup' ? (authRole === 'client' ? 'New Client' : 'New Staff') : (authRole === 'client' ? 'Emma Smith' : 'Alex Johnson'), 
                   role: authRole 
